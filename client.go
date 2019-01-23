@@ -30,3 +30,12 @@ func (c *Client) Get(queueName string, maxItems int32, autoAbort time.Duration) 
 	}
 	return nil, err
 }
+
+func (c *Client) Set(queueName, message string) error {
+	item := &memcache.Item{
+		Key: queueName,
+		Value: []byte(message),
+	}
+	err := c.client.Set(item)
+	return err
+}

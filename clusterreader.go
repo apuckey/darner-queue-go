@@ -49,7 +49,7 @@ func (r *ClusterReader) ReadIntoChannel(queueName string, ch chan<- *QueueItem) 
 				if err != nil && err != memcache.ErrCacheMiss {
 					// probably decide what to do here. lets just wait for timeout before trying to get new messages for now.
 					// most likely a transient issue ie: restarting darner
-					logger.Error(fmt.Sprintf("Error getting message from queue: %s", err.Error()))
+					logger.Error(fmt.Sprintf("[DarnerQueue]: Error getting message from queue: %s", err.Error()))
 					<-time.After(r.Backoff.Duration())
 				} else {
 					// normal operation. reset backoff timer

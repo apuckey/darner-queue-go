@@ -1,5 +1,7 @@
 github.com/apache/thrift v0.0.0-20130818235439-ff980c143293/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/apuckey/scribe-logger-go v0.0.0-20181114235733-80f9b19fdf72 h1:onwyGRx0nGxw8Uq36/d7AfZbwfQLXZwB6wWnRmCOFHY=
 github.com/apuckey/scribe-logger-go v0.0.0-20181114235733-80f9b19fdf72/go.mod h1:+Emi2f1DPyDgWntka+c40eapqte98bFtqm4QgCPEZIo=
+github.com/apuckey/scribe-logger-go v0.0.0-20190111230627-1874a6175892 h1:L6DUCkAjlhezCiGSshv3UtLDk28XeKHcom0BCslWtic=
+github.com/apuckey/scribe-logger-go v0.0.0-20190111230627-1874a6175892/go.mod h1:c39H+c9unydru+854UDShNSig2jYAGk06J1GKecCVR8=
 github.com/bradfitz/gomemcache v0.0.0-20180710155616-bc664df96737 h1:rRISKWyXfVxvoa702s91Zl5oREZTrR3yv+tXrrX7G/g=
 github.com/bradfitz/gomemcache v0.0.0-20180710155616-bc664df96737/go.mod h1:PmM6Mmwb0LSuEubjR8N7PtNe1KxZLtOUHtbeikc5h60=
