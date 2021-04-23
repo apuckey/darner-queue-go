@@ -2,8 +2,8 @@ package darner
 
 import (
 	"fmt"
+	"github.com/apuckey/darner-queue-go/memcache"
 	"github.com/apuckey/scribe-logger-go"
-	"github.com/bradfitz/gomemcache/memcache"
 	"sync"
 	"time"
 )

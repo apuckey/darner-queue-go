@@ -2,7 +2,8 @@ package darner
 
 import (
 	"fmt"
-	"github.com/bradfitz/gomemcache/memcache"
+	"github.com/apuckey/darner-queue-go/memcache"
+	"net"
 	"time"
 )
 
@@ -31,11 +32,16 @@ func (c *Client) Get(queueName string, maxItems int32, autoAbort time.Duration) 
 	return nil, err
 }
 
-func (c *Client) Set(queueName, message string) error {
+func (c *Client) Set(queueName, message string) (err error) {
 	item := &memcache.Item{
 		Key: queueName,
 		Value: []byte(message),
 	}
-	err := c.client.Set(item)
-	return err
+	err = c.client.Set(item)
+	return
+}
+
+func (c *Client) Stats() (servers map[net.Addr]*memcache.ServerStats, err error) {
+	servers, err = c.client.StatsServers()
+	return
 }
