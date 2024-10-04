@@ -45,9 +45,10 @@ func (r *ClusterReader) ReadIntoChannel(queueName string, ch chan<- *QueueItem) 
 		go func(client *Client, queueName string, ch chan<- *QueueItem, closed chan struct{}) {
 			defer r.wg.Done()
 
+			hasFailed := false
+
 			for {
 				item, err := client.Get(queueName, 1, r.AbortTimeout)
-				hasFailed := false
 				if err != nil && !errors.Is(err, memcache.ErrCacheMiss) {
 					// probably decide what to do here. lets just wait for timeout before trying to get new messages for now.
 					// most likely a transient issue ie: restarting darner
