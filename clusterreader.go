@@ -1,6 +1,7 @@
 package darner
 
 import (
+	"errors"
 	"fmt"
 	"github.com/apuckey/darner-queue-go/memcache"
 	"github.com/apuckey/scribe-logger-go"
@@ -46,14 +47,20 @@ func (r *ClusterReader) ReadIntoChannel(queueName string, ch chan<- *QueueItem) 
 
 			for {
 				item, err := client.Get(queueName, 1, r.AbortTimeout)
-				if err != nil && err != memcache.ErrCacheMiss {
+				hasFailed := false
+				if err != nil && !errors.Is(err, memcache.ErrCacheMiss) {
 					// probably decide what to do here. lets just wait for timeout before trying to get new messages for now.
 					// most likely a transient issue ie: restarting darner
+					hasFailed = true
 					logger.Error(fmt.Sprintf("[DarnerQueue]: Error getting message from queue: %s", err.Error()))
 					<-time.After(r.Backoff.Duration())
 				} else {
 					// normal operation. reset backoff timer
 					r.Backoff.Reset()
+					if hasFailed {
+						logger.Info(fmt.Sprintf("[DarnerQueue]: resuming normal operation"))
+						hasFailed = false
+					}
 					if item != nil {
 						ch <- item
 					}
